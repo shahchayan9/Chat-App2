@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Messaging App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="chat-container">
+        <ul id="message-list"></ul>
+        <input id="message-input" type="text" placeholder="Type your message..." />
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+    <script type="text/javascript">
+        let userId = localStorage.getItem("userId");
+        if (!userId) {
+            userId = "user_" + Math.random().toString(36).substring(2, 15);
+            localStorage.setItem("userId", userId);
+        }
+
+        let socket = new SockJS('/ws');
+        let stompClient = Stomp.over(socket);
+
+        stompClient.connect({}, function () {
+            stompClient.subscribe('/topic/messages', function (messageOutput) {
+                const message = JSON.parse(messageOutput.body);
+
+                // Log message details for debugging
+                console.log("Received message:", message);
+
+                const alignmentClass = message.sender === userId ? "message-right" : "message-left";
+                showMessage(message, alignmentClass);
+            });
+        });
+
+        document.getElementById("message-input").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                let messageContent = event.target.value;
+                stompClient.send("/app/send", {}, JSON.stringify({'content': messageContent, 'sender': userId}));
+                event.target.value = ''; // Clear input
+            }
+        });
+
+        function showMessage(message, alignmentClass) {
+            let messageWrapper = document.createElement("div");
+            messageWrapper.classList.add(alignmentClass); // Add alignment class
+
+            let messageElement = document.createElement("li");
+            messageElement.textContent = message.content;
+
+            messageWrapper.appendChild(messageElement);
+            document.getElementById("message-list").appendChild(messageWrapper);
+        }
+    </script>
+</body>
+</html>

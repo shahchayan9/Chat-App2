@@ -1,0 +1,74 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+#chat-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 500px;
+    height: 80vh;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+#message-list {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    margin: 0;
+    list-style-type: none;
+    overflow-y: auto;
+    flex-grow: 1;
+    gap: 10px;
+}
+
+/* Message Styles */
+.message-left, .message-right {
+    display: flex;
+    padding: 8px 12px;
+    border-radius: 15px;
+    max-width: 75%;
+    word-wrap: break-word;
+    font-size: 0.9em;
+    color: #333;
+}
+
+.message-left {
+    background-color: #e7f3ff;
+    align-self: flex-start;
+}
+
+.message-right {
+    background-color: #d1e7dd;
+    align-self: flex-end;
+    text-align: right;
+}
+
+/* Input Styles */
+#message-input {
+    padding: 15px;
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    font-size: 1em;
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+}
+
+#message-input::placeholder {
+    color: #a0a0a0;
+}
+
+#message-input:focus {
+    background-color: #f9f9f9;
+}
