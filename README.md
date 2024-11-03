@@ -1,5 +1,5 @@
 # Chat-Application
-This is a simple chat application built using Spring Boot and HTML/CSS/JavaScript.
+This project is a real-time messaging application built with a Spring Boot backend and a responsive HTML/CSS/JavaScript frontend. The application enables users to send and receive messages with a simple, user-friendly interface, allowing them to view messages in a traditional manner (their messages are aligned left, others' are aligned right).
 
 ## Usage Instructions
 There are two options to setup this project, either through the IntelliJ IDE or through the command line.
